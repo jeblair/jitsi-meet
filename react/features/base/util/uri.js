@@ -99,7 +99,7 @@ function _fixURIStringScheme(uri: string) {
 }
 
 /**
- * Converts a room name to a backend-safe format. Properly lowercased and url encoded.
+ * Converts a room name to a backend-safe format. Properly url encoded.
  *
  * @param {string?} room - The room name to convert.
  * @returns {string?}
@@ -125,18 +125,11 @@ export function getBackendSafeRoomName(room: ?string): ?string {
     // Normalize the character set.
     room = normalizeNFKC(room);
 
-    // Only decoded and normalized strings can be lowercased properly.
-    room = room.toLowerCase();
-
     // But we still need to (re)encode it.
     room = encodeURIComponent(room);
     /* eslint-enable no-param-reassign */
 
-    // Unfortunately we still need to lowercase it, because encoding a string will
-    // add some uppercase characters, but some backend services
-    // expect it to be full lowercase. However lowercasing an encoded string
-    // doesn't change the string value.
-    return room.toLowerCase();
+    return room;
 }
 
 /**
